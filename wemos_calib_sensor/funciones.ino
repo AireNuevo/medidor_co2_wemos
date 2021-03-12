@@ -24,7 +24,6 @@ void rgb(char color) {
   }
 }
 //-----------------Alarma----------------------------
-/*
 void alarma(int veces, int duracionNota) {
   for(int i=0; i<veces; i++)
   {
@@ -33,7 +32,7 @@ void alarma(int veces, int duracionNota) {
     noTone(pinBuzzer);                    // Silencio el buzzer
     delay(duracionNota);                  // Delay entre alarmas
   }
-}*/
+}
 
 // Creacion del simbolo de numeral para ser utilizado en el display i2c
 byte numeral[] = {

@@ -10,6 +10,7 @@ const int tx_pin = 15;     // Serial tx
 const int pinLedR = 16;    // Led Rojo
 const int pinLedG = 14;    // Led Verde
 const int pinLedB = 12;    // Led Azul
+const int pinBuzzer = 0;      // Buzzer
 //--------------------------------------------------
 long loops = 0;                         // Contamos las veces que se ejecutó el loop
 MHZ19_uart sensor;                      // creo el objeto del sensor
@@ -19,6 +20,7 @@ void setup() {
   pinMode(pinLedR, OUTPUT);                 //Inicia LED ROJO
   pinMode(pinLedG, OUTPUT);                 //Inicia LED VERDE
   pinMode(pinLedB, OUTPUT);                 //Inicia LED AZUL
+  pinMode(pinBuzzer, OUTPUT);                 //Inicia Buzzer
   digitalWrite(pinLedR, 255);
   digitalWrite(pinLedG, 255);
   digitalWrite(pinLedB, 255);
@@ -27,6 +29,7 @@ void setup() {
   display.begin();                       // Inicio el display            
   display.clear();                       // Limpio la pantalla 
   display.backlight();                   // Prendo la backlight
+  alarma(1, 250);
   // Print por serial
   Serial.print("INICIANDO \n");
   // Print por display
@@ -54,6 +57,7 @@ void setup() {
   delay(60000);                          // Esperamos 2 minutos
   display.clear();                        // Limpio la pantalla
   rgb('g');
+  alarma(3, 250);                         // Alarma indicando que terminó el calentamiento
 }
 
 void loop() {
@@ -73,16 +77,19 @@ void loop() {
   imprimirCO2(co2ppm);
   //  Emite una alarma en función del resultado
   if(co2ppm >= 1000 and co2ppm < 1200){
-    rgb('r');                         
+    rgb('r');
+    alarma(4, 500);                         
   } 
   else if(co2ppm >= 800 and co2ppm < 1200){
     rgb('y');
+    alarma(2, 1000);
   }
   else if(co2ppm < 800){
     rgb('g');
   }
   while(sensor.getPPM() >= 1200) {
     rgb('r'); 
+    alarma(1, 250);
   }
   imprimirCO2(sensor.getPPM());
   delay(10000); //demora 10 seg entre mediciones
