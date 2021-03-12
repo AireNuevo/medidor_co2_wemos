@@ -34,25 +34,82 @@ void alarma(int veces, int duracionNota) {
     delay(duracionNota);                  // Delay entre alarmas
   }
 }*/
+
+// Creacion del simbolo de numeral para ser utilizado en el display i2c
+byte numeral[] = {
+  B11100,
+  B10100,
+  B11100,
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00000
+};
 //-----------Print-por-display----------------------
 void displayPrint(int posicion, int linea, String texto) {
   display.setCursor(posicion, linea);       // Ubicamos el cursor en la posicion y linea deseada
   display.print(texto);                     // Escribe primera linea del cartel
 }
-void imprimirCO2(int co2ppm, int temp) {
+void imprimirCO2(int co2ppm) {
   // Print por serial  
+  Serial.print("N° de serie 0000");
   Serial.print("CO2: " + String(co2ppm) + "ppm \n");  // Escribe CO2
-  Serial.print("Temp: " + String(temp) + "*C \n");    // Escribe temperatura
   // Print por display
-  // Muestra medición de CO2   
+  // Muestra medición de CO2  
   display.clear();                                    // Borra pantalla
-  displayPrint(0, 0, "CO2: ");                        // Ubicamos el cursor en la primera posición(columna:0) de la primera línea(fila:0)
-  displayPrint(8, 0, String(co2ppm));                 // Ubicamos el cursor en la novena posición(columna:8) de la primera línea(fila:0)
-  displayPrint(12, 0, "ppm");                         // Ubicamos el cursor en la treceava posición(columna:12) de la primera línea(fila:0)
-  // Muestra medición de temperatura
-  displayPrint(0, 1, "Temp: ");                       // Ubicamos el cursor en la primera posición(columna:0) de la segunda línea(fila:1)
-  displayPrint(8, 1, String(temp));                   // Ubicamos el cursor en la novena posición(columna:8) de la segunda línea(fila:1)
-  displayPrint(12, 1, "*C");                          // Ubicamos el cursor en la treceava posición(columna:12) de la segunda línea(fila:1)
+  // Print numero serie
+  displayPrint(0, 0, "N/S: 0000");
+  // Print CO2
+  displayPrint(0, 1, "CO2: " + String(co2ppm) + "ppm");   
+  logoUNAHUR();
+}
+void logoUNAHUR() {
+  byte UNAHUR1[] = {
+    B11100,
+    B11110,
+    B11111,
+    B11111,
+    B11111,
+    B11111,
+    B01111,
+    B00111
+  };
+  byte UNAHUR2[] = {
+    B11111,
+    B11111,
+    B11111,
+    B11111,
+    B11111,
+    B11111,
+    B11111,
+    B11111
+  };
+  byte UNAHUR3[] = {
+    B00111,
+    B01111,
+    B11111,
+    B11111,
+    B11111,
+    B11111,
+    B11110,
+    B11100
+  };
+  display.createChar(0, UNAHUR1);
+  display.createChar(1, UNAHUR2);
+  display.createChar(2, UNAHUR3);
+  display.setCursor(13, 0);       // Ubicamos el cursor en la posicion y linea deseada
+  display.write(0);
+  display.setCursor(14, 0);       // Ubicamos el cursor en la posicion y linea deseada
+  display.write(1);
+  display.setCursor(15, 0);       // Ubicamos el cursor en la posicion y linea deseada
+  display.write(2);
+  display.setCursor(13, 1);       // Ubicamos el cursor en la posicion y linea deseada
+  display.write(2);
+  display.setCursor(14, 1);       // Ubicamos el cursor en la posicion y linea deseada
+  display.write(1);
+  display.setCursor(15, 1);       // Ubicamos el cursor en la posicion y linea deseada
+  display.write(0);
 }
 //-----------Calibración----------------------
 /*

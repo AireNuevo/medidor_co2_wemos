@@ -70,8 +70,7 @@ void loop() {
     loops = 0;                                  // Reinicio la cuenta
   } 
   int co2ppm = sensor.getPPM(); // mide CO2
-  int temp = sensor.getTemperature(); // mide temperatura
-  imprimirCO2(co2ppm, temp);
+  imprimirCO2(co2ppm);
   //  Emite una alarma en función del resultado
   if(co2ppm >= 1000 and co2ppm < 1200){
     rgb('r');                         
@@ -85,6 +84,6 @@ void loop() {
   while(sensor.getPPM() >= 1200) {
     rgb('r'); 
   }
-  imprimirCO2(sensor.getPPM(), sensor.getTemperature());
+  imprimirCO2(sensor.getPPM());
   delay(10000); //demora 10 seg entre mediciones
 }
