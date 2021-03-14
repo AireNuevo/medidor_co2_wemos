@@ -10,7 +10,9 @@ const int tx_pin = 15;     // Serial tx
 const int pinLedR = 16;    // Led Rojo
 const int pinLedG = 14;    // Led Verde
 const int pinLedB = 12;    // Led Azul
-const int pinBuzzer = 0;      // Buzzer
+const int pinBuzzer = 0;   // Buzzer
+const int pinCalib = 2;    // Pulsador
+const String numeroSerie = "0000"; 
 //--------------------------------------------------
 long loops = 0;                         // Contamos las veces que se ejecutó el loop
 MHZ19_uart sensor;                      // creo el objeto del sensor
@@ -21,6 +23,7 @@ void setup() {
   pinMode(pinLedG, OUTPUT);                 //Inicia LED VERDE
   pinMode(pinLedB, OUTPUT);                 //Inicia LED AZUL
   pinMode(pinBuzzer, OUTPUT);                 //Inicia Buzzer
+  pinMode(pinCalib, INPUT_PULLUP); // entrada pulsado para calibrar, seteada como pulluppara poder conectar pulsador sin poenr resistencia adicional
   digitalWrite(pinLedR, 255);
   digitalWrite(pinLedG, 255);
   digitalWrite(pinLedB, 255);
@@ -62,6 +65,9 @@ void setup() {
 
 void loop() {
   // Se presenta el nombre del proyecto cada 30 loops
+  if (digitalRead(pinCalib) == LOW) { 
+    calibrar();
+  }
   if(++loops % 30 == 0) { // Si loops es múltiplo de 30 
     // Print por serial
     Serial.print("AireNuevo UNAHUR \n"); 

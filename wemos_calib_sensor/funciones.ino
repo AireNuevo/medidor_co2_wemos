@@ -52,13 +52,13 @@ void displayPrint(int posicion, int linea, String texto) {
 }
 void imprimirCO2(int co2ppm) {
   // Print por serial  
-  Serial.print("N° de serie 0000");
+  Serial.print("N° de serie " + numeroSerie + "\n");
   Serial.print("CO2: " + String(co2ppm) + "ppm \n");  // Escribe CO2
   // Print por display
   // Muestra medición de CO2  
   display.clear();                                    // Borra pantalla
   // Print numero serie
-  displayPrint(0, 0, "N/S: 0000");
+  displayPrint(0, 0, "N/S: " + numeroSerie);
   // Print CO2
   displayPrint(0, 1, "CO2: " + String(co2ppm) + "ppm");   
   logoUNAHUR();
@@ -111,13 +111,13 @@ void logoUNAHUR() {
   display.write(0);
 }
 //-----------Calibración----------------------
-/*
 void calibrar()
 {
   const long segundosEspera = 1800;      // Cantidad de segundos a esperar
   long segundosPasados = 0;              // Cuenta segundos
   // Print por serial
   Serial.print("COMIENZA CALIBRACION \n");
+  rgb('b');
   // Print por display
   display.clear();
   displayPrint(0, 0, "COMIENZA");
@@ -172,4 +172,5 @@ void calibrar()
   displayPrint(0, 1, "TERMINADA");    // Ubicamos el cursor en la primera posición(columna:0) de la segunda línea(fila:1)
   alarma(5, 250);
   delay(10000); // Espera 10 segundos 
-}*/
+  rgb('g');
+}
