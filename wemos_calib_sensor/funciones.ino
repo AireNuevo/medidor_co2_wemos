@@ -52,13 +52,11 @@ void displayPrint(int posicion, int linea, String texto) {
 }
 void imprimirCO2(int co2ppm) {
   // Print por serial  
-  Serial.print("N° de serie " + numeroSerie + "\n");
   Serial.print("CO2: " + String(co2ppm) + "ppm \n");  // Escribe CO2
   // Print por display
   // Muestra medición de CO2  
-  display.clear();                                    // Borra pantalla
-  // Print numero serie
-  displayPrint(0, 0, "N/S: " + numeroSerie);
+  //display.clear();                                  // Borra pantalla
+  displayPrint(0, 1, "          ");                   // Simula un clear solo del renglon inferior
   // Print CO2
   displayPrint(0, 1, "CO2: " + String(co2ppm) + "ppm");   
   logoUNAHUR();
@@ -173,4 +171,25 @@ void calibrar()
   alarma(5, 250);
   delay(10000); // Espera 10 segundos 
   rgb('g');
+}
+
+//------------Scrolling-Text-----------------------
+#define STR_LEN 12                                                      // Largo del texto
+char str_to_print[STR_LEN]={'A','i','r','e',' ','N','u','e','v','o'};   // String separado en caracteres
+
+void scrollingText(uint8_t scrolled_by) {
+  for (uint8_t i=0;i<11;i++) {
+    display.setCursor(i,0);
+    if (scrolled_by>=11) scrolled_by=0;
+    if (scrolled_by<10) display.print(str_to_print[scrolled_by]);
+    else display.print(' ');
+    scrolled_by++;
+  }
+}
+
+void aireNuevo() {
+  for (uint8_t i=0;i<STR_LEN;i++) {
+    scrollingText(i);
+    delay(500);
+  }
 }

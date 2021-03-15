@@ -34,9 +34,13 @@ void setup() {
   display.backlight();                   // Prendo la backlight
   alarma(1, 250);
   // Print por serial
+  Serial.print("N° de serie " + numeroSerie + "\n");
   Serial.print("INICIANDO \n");
   // Print por display
+  // Print numero serie
+  displayPrint(0, 0, "N/S: " + numeroSerie);
   displayPrint(0, 1, "INICIANDO");       // Ubicamos el cursor en la primera posición(columna:0) de la segunda línea(fila:1)
+  logoUNAHUR();
   delay(5000);                           // Esperamos 5 segundos
   display.clear();                       // Limpio la pantalla
   // Calentamos 
@@ -79,6 +83,8 @@ void loop() {
     delay(5000);
     loops = 0;                                  // Reinicio la cuenta
   } 
+  display.clear()
+  displayPrint(0, 0, "Aire Nuevo");
   int co2ppm = sensor.getPPM(); // mide CO2
   imprimirCO2(co2ppm);
   //  Emite una alarma en función del resultado
@@ -98,5 +104,6 @@ void loop() {
     alarma(1, 250);
   }
   imprimirCO2(sensor.getPPM());
-  delay(10000); //demora 10 seg entre mediciones
+  aireNuevo();
+  delay(5000); //demora 10 seg entre mediciones
 }
