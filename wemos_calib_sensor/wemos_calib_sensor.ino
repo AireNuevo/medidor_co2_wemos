@@ -83,7 +83,7 @@ void loop() {
     delay(5000);
     loops = 0;                                  // Reinicio la cuenta
   } 
-  display.clear()
+  display.clear();
   displayPrint(0, 0, "Aire Nuevo");
   int co2ppm = sensor.getPPM(); // mide CO2
   imprimirCO2(co2ppm);
