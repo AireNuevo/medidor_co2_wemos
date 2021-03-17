@@ -25,7 +25,7 @@ En este repositorio se encuentran las librerias como archivos .zip para ser inst
 Y ya está todo listo para cargar código en la placa
 
 ## Driver del microcontrolador
-El microcontrolador de esta placa es un CH340G, el driver se puede descargar para su sistema operativo correspondiente desde este [enlace](http://www.wch.cn/download/CH341SER_EXE.html)
+El microcontrolador de esta placa es un CH340G, el driver para su sistema operativo correspondiente se puede descargar desde este [enlace](http://www.wch.cn/download/CH341SER_EXE.html)
 
 
 ## Acerca del proyecto
