@@ -14,8 +14,8 @@ const int pinLedB = 12;    // Led Azul
 El pin D3/GPIO0 se usa para Flash de la placa, si el buzzer está conectado durante el inicio
 o al cargar código, genera problemas. 
 */
-const int pinBuzzer = 0;   // Buzzer
-const int pinCalib = 2;    // Pulsador
+const int pinBuzzer = 1;   // Buzzer
+const int pinCalib = 3;    // Pulsador
 const String numeroSerie = "0000"; 
 //--------------------------------------------------
 long loops = 0;                         // Contamos las veces que se ejecutó el loop
@@ -23,6 +23,10 @@ MHZ19_uart sensor;                      // creo el objeto del sensor
 LiquidCrystal_I2C display(0x27,16,2);   // Creo el objeto display  dirección  0x27 y 16 columnas x 2 filas
 //-----------------Setup----------------------------
 void setup() {
+  //GPIO 1 (TX) swap the pin to a GPIO.
+  pinMode(1, FUNCTION_3); 
+  //GPIO 3 (RX) swap the pin to a GPIO.
+  pinMode(3, FUNCTION_3); 
   pinMode(pinLedR, OUTPUT);                 //Inicia LED ROJO
   pinMode(pinLedG, OUTPUT);                 //Inicia LED VERDE
   pinMode(pinLedB, OUTPUT);                 //Inicia LED AZUL
