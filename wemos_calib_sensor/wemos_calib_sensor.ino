@@ -10,6 +10,10 @@ const int tx_pin = 15;     // Serial tx
 const int pinLedR = 16;    // Led Rojo
 const int pinLedG = 14;    // Led Verde
 const int pinLedB = 12;    // Led Azul
+/*
+El pin D3/GPIO0 se usa para Flash de la placa, si el buzzer está conectado durante el inicio
+o al cargar código, genera problemas. 
+*/
 const int pinBuzzer = 0;   // Buzzer
 const int pinCalib = 2;    // Pulsador
 const String numeroSerie = "0000"; 
