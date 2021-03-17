@@ -1,4 +1,5 @@
 //-----------Led-RGB----------------------
+/*
 void rgb(char color) {
   switch (color) {
     case 'r':
@@ -23,13 +24,16 @@ void rgb(char color) {
       break;
   }
 }
+*/
 //-----------------Alarma----------------------------
 void alarma(int veces, int duracionNota) {
   for(int i=0; i<veces; i++)
   {
+    digitalWrite(pinLed, HIGH);           // Prendo led 
     tone(pinBuzzer, 523, duracionNota);   // Hago sonar el buzzer, 523 corresponde a la nota C5
     delay(duracionNota);                  // Espero lo que dura la nota
     noTone(pinBuzzer);                    // Silencio el buzzer
+    digitalWrite(pinLed , LOW);           // Apago led
     delay(duracionNota);                  // Delay entre alarmas
   }
 }
@@ -115,7 +119,6 @@ void calibrar()
   long segundosPasados = 0;              // Cuenta segundos
   // Print por serial
   Serial.print("COMIENZA CALIBRACION \n");
-  rgb('b');
   // Print por display
   display.clear();
   displayPrint(0, 0, "COMIENZA");
@@ -170,7 +173,6 @@ void calibrar()
   displayPrint(0, 1, "TERMINADA");    // Ubicamos el cursor en la primera posición(columna:0) de la segunda línea(fila:1)
   alarma(5, 250);
   delay(10000); // Espera 10 segundos 
-  rgb('g');
 }
 
 //------------Scrolling-Text-----------------------

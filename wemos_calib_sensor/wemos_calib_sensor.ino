@@ -1,5 +1,5 @@
 /*----------------------------------------------------------
-    Medidor de CO2 con display I2C y pulsador WEMOS
+    Medidor de CO2 con placa WEMOS, pantalla i2c, led simple
   ----------------------------------------------------------*/
 #include <MHZ19_uart.h>     
 #include <Wire.h> 
@@ -7,15 +7,15 @@
 //-----------------Pines----------------------------
 const int rx_pin = 13;     // Serial rx
 const int tx_pin = 15;     // Serial tx
-const int pinLedR = 16;    // Led Rojo
-const int pinLedG = 14;    // Led Verde
-const int pinLedB = 12;    // Led Azul
+const int pinLed = 16;    // Led Rojo
+//const int pinLedG = 14;    // Led Verde
+//const int pinLedB = 12;    // Led Azul
 /*
 El pin D3/GPIO0 se usa para Flash de la placa, si el buzzer está conectado durante el inicio
 o al cargar código, genera problemas. 
 */
-const int pinBuzzer = 1;   // Buzzer
-const int pinCalib = 3;    // Pulsador
+const int pinBuzzer = 14;   // Buzzer
+const int pinCalib = 12;    // Pulsador
 const String numeroSerie = "0000"; 
 //--------------------------------------------------
 long loops = 0;                         // Contamos las veces que se ejecutó el loop
@@ -23,19 +23,9 @@ MHZ19_uart sensor;                      // creo el objeto del sensor
 LiquidCrystal_I2C display(0x27,16,2);   // Creo el objeto display  dirección  0x27 y 16 columnas x 2 filas
 //-----------------Setup----------------------------
 void setup() {
-  //GPIO 1 (TX) swap the pin to a GPIO.
-  pinMode(1, FUNCTION_3); 
-  //GPIO 3 (RX) swap the pin to a GPIO.
-  pinMode(3, FUNCTION_3); 
-  pinMode(pinLedR, OUTPUT);                 //Inicia LED ROJO
-  pinMode(pinLedG, OUTPUT);                 //Inicia LED VERDE
-  pinMode(pinLedB, OUTPUT);                 //Inicia LED AZUL
+  pinMode(pinLed, OUTPUT);                 //Inicia LED ROJO
   pinMode(pinBuzzer, OUTPUT);                 //Inicia Buzzer
   pinMode(pinCalib, INPUT_PULLUP); // entrada pulsado para calibrar, seteada como pulluppara poder conectar pulsador sin poenr resistencia adicional
-  digitalWrite(pinLedR, 255);
-  digitalWrite(pinLedG, 255);
-  digitalWrite(pinLedB, 255);
-  rgb('b');
   Serial.begin(9600);                    // Iniciamos el serial
   display.begin();                       // Inicio el display            
   display.clear();                       // Limpio la pantalla 
@@ -49,21 +39,11 @@ void setup() {
   displayPrint(0, 0, "N/S: " + numeroSerie);
   displayPrint(0, 1, "INICIANDO");       // Ubicamos el cursor en la primera posición(columna:0) de la segunda línea(fila:1)
   logoUNAHUR();
-  delay(5000);                           // Esperamos 5 segundos
+  delay(10000);                           // Esperamos 5 segundos
   display.clear();                       // Limpio la pantalla
   // Calentamos 
   sensor.begin(rx_pin, tx_pin);          // Setteamos los pines y iniciamos el sensor
-  sensor.setAutoCalibration(false);      //Se setea la autocalibracion en falso para poder calibrar cuando se desee
-  // Presentamos el medidor
-  // Print por serial
-  Serial.print("AireNuevo UNAHUR \n"); 
-  Serial.print("MEDIDOR de CO2 \n");  
-  // Print por display
-  display.clear();                            
-  displayPrint(0, 0, "AireNuevo UNAHUR");     // Ubicamos el cursor en la primera posición(columna:0) de la segunda línea(fila:1)
-  displayPrint(0, 1, "MEDIDOR de CO2");       // Ubicamos el cursor en la primera posición(columna:0) de la segunda línea(fila:1)
-  delay(5000);                                
-  display.clear();                            // Limpio la pantalla
+  sensor.setAutoCalibration(false);      //Se setea la autocalibracion en falso para poder calibrar cuando se desee                               
   // Print por serial
   Serial.print("Calentando, espere 1 minuto \n");
   // Print por display
@@ -71,13 +51,13 @@ void setup() {
   displayPrint(0, 1, "Espere 1 minuto"); // Ubicamos el cursor en la primera posición(columna:0) de la primera línea(fila:0)
   delay(60000);                          // Esperamos 2 minutos
   display.clear();                        // Limpio la pantalla
-  rgb('g');
   alarma(3, 250);                         // Alarma indicando que terminó el calentamiento
 }
 
 void loop() {
   // Se presenta el nombre del proyecto cada 30 loops
   if (digitalRead(pinCalib) == LOW) { 
+    alarma(1, 250);
     calibrar();
   }
   if(++loops % 30 == 0) { // Si loops es múltiplo de 30 
@@ -96,22 +76,16 @@ void loop() {
   int co2ppm = sensor.getPPM(); // mide CO2
   imprimirCO2(co2ppm);
   //  Emite una alarma en función del resultado
-  if(co2ppm >= 1000 and co2ppm < 1200){
-    rgb('r');
-    alarma(4, 500);                         
-  } 
-  else if(co2ppm >= 800 and co2ppm < 1200){
-    rgb('y');
-    alarma(2, 1000);
-  }
-  else if(co2ppm < 800){
-    rgb('g');
-  }
   while(sensor.getPPM() >= 1200) {
-    rgb('r'); 
     alarma(1, 250);
   }
   imprimirCO2(sensor.getPPM());
+  if(co2ppm >= 1000){
+    alarma(4, 500);                         
+  } 
+  else if(co2ppm >= 800){
+    alarma(2, 1000);
+  }
   aireNuevo();
   delay(5000); //demora 10 seg entre mediciones
 }
