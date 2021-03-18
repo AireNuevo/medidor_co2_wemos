@@ -1,30 +1,3 @@
-//-----------Led-RGB----------------------
-/*
-void rgb(char color) {
-  switch (color) {
-    case 'r':
-      digitalWrite(pinLedR, 0);
-      digitalWrite(pinLedG, 255);
-      digitalWrite(pinLedB, 255);
-      break;
-    case 'g':
-      digitalWrite(pinLedR, 255);
-      digitalWrite(pinLedG, 0);
-      digitalWrite(pinLedB, 255);
-      break;
-    case 'y':
-      digitalWrite(pinLedR, 0);
-      digitalWrite(pinLedG, 0);
-      digitalWrite(pinLedB, 255);
-      break;
-    case 'b':
-      digitalWrite(pinLedR, 255);
-      digitalWrite(pinLedG, 255);
-      digitalWrite(pinLedB, 0);
-      break;
-  }
-}
-*/
 //-----------------Alarma----------------------------
 void alarma(int veces, int duracionNota) {
   for(int i=0; i<veces; i++)
@@ -118,23 +91,23 @@ void calibrar()
   const long segundosEspera = 1800;      // Cantidad de segundos a esperar
   long segundosPasados = 0;              // Cuenta segundos
   // Print por serial
-  Serial.print("COMIENZA CALIBRACION \n");
+  Serial.print("COMIENZA CALIBRACION \n"); // Notificamos que empezó el proceso de calibración
   // Print por display
   display.clear();
   displayPrint(0, 0, "COMIENZA");
   displayPrint(0, 1, "CALIBRACION");
   delay(10000); // Espera 10 segundos
  
-  while(segundosPasados <= segundosEspera) { // espera media hora
-    if (++segundosPasados % 60 == 0) {                           // Si cnt es múltiplo de 60
+  while(segundosPasados <= segundosEspera) {                      // Espera media hora
+    if (++segundosPasados % 60 == 0) {                            // Si los segundos pasados son múltiplo de 60
       // Print por serial
       Serial.print(String(segundosPasados / 60) + " minutos \n"); // Cada minuto muestra el valor 
       Serial.print("CO2: " + String(sensor.getPPM()) + "ppm \n"); // Escribe CO2
       // Print por display
       display.clear();                                            // Borra pantalla  
-      displayPrint(0, 0, String(segundosPasados / 60));           // Ubicamos el cursor en la primera posición(columna:0) de la primer línea(fila:0) y escribimos los minutos pasados
+      displayPrint(0, 0, String(segundosPasados / 60));           // Escribimos los minutos pasados
       displayPrint(7, 0, "minutos");
-      displayPrint(0, 1, "CO2: ");                                // Ubicamos el cursor en la primera posición(columna:0) de la segunda línea(fila:1) y escribimos el CO2
+      displayPrint(0, 1, "CO2: ");                                // Escribimos el CO2
       displayPrint(8, 1, String(sensor.getPPM()));
       displayPrint(12, 1, "ppm");
     }
@@ -142,7 +115,7 @@ void calibrar()
       // Print por display
       display.clear();                                            // Borra pantalla  
       displayPrint(0, 0, "CALIBRANDO");
-      displayPrint(0, 1, String(segundosPasados / 60));           // Ubicamos el cursor en la primera posición(columna:0) de la primer línea(fila:0) y escribimos los minutos pasados
+      displayPrint(0, 1, String(segundosPasados / 60));           // Escribimos los minutos pasados
       displayPrint(7, 1, "minutos");
     }
     delay(1000); // Espera 1 segundo
@@ -152,26 +125,26 @@ void calibrar()
   Serial.print("PRIMERA CALIBRACION \n");
   // Print por display
   display.clear();                      // Limpio pantalla
-  displayPrint(0, 0, "PRIMERA");        // Ubicamos el cursor en la primera posición(columna:0) de la primera línea(fila:0)
-  displayPrint(0, 1, "CALIBRACION");    // Ubicamos el cursor en la primera posición(columna:0) de la segunda línea(fila:1) 
-  alarma(1, 250);
+  displayPrint(0, 0, "PRIMERA");       
+  displayPrint(0, 1, "CALIBRACION");     
+  alarma(1, 250);                       // Avisamos que terminó la primera calibración
   delay(60000);                         // Espera 1 minuto
   sensor.calibrateZero();               // Calibra por segunda vez por las dudas
   // Print por serial
   Serial.print("SEGUNDA CALIBRACION \n");
   // Print por display
   display.clear();                      // Limpio pantalla     
-  displayPrint(0, 0, "SEGUNDA");        // Ubicamos el cursor en la primera posición(columna:0) de la primera línea(fila:0)
-  displayPrint(0, 1, "CALIBRACION");    // Ubicamos el cursor en la primera posición(columna:0) de la segunda línea(fila:1) 
-  alarma(1, 250);
+  displayPrint(0, 0, "SEGUNDA");        
+  displayPrint(0, 1, "CALIBRACION");    
+  alarma(1, 250);                       // Avisamos que terminó la segunda calibración
   delay(10000); // Espera 10 segundos
   // Print por serial
   Serial.print("CALIBRACION TERMINADA \n");
   // Print por display
   display.clear(); // borra pantalla  
-  displayPrint(0, 0, "CALIBRACION");        // Ubicamos el cursor en la primera posición(columna:0) de la primera línea(fila:0)
-  displayPrint(0, 1, "TERMINADA");    // Ubicamos el cursor en la primera posición(columna:0) de la segunda línea(fila:1)
-  alarma(5, 250);
+  displayPrint(0, 0, "CALIBRACION");       
+  displayPrint(0, 1, "TERMINADA");    
+  alarma(5, 250);                       // Avisamos que finalizó el proceso de calibración entero
   delay(10000); // Espera 10 segundos 
 }
 
@@ -195,3 +168,30 @@ void aireNuevo() {
     delay(500);
   }
 }
+//-----------Led-RGB----------------------
+/*
+void rgb(char color) {
+  switch (color) {
+    case 'r':
+      digitalWrite(pinLedR, 0);
+      digitalWrite(pinLedG, 255);
+      digitalWrite(pinLedB, 255);
+      break;
+    case 'g':
+      digitalWrite(pinLedR, 255);
+      digitalWrite(pinLedG, 0);
+      digitalWrite(pinLedB, 255);
+      break;
+    case 'y':
+      digitalWrite(pinLedR, 0);
+      digitalWrite(pinLedG, 0);
+      digitalWrite(pinLedB, 255);
+      break;
+    case 'b':
+      digitalWrite(pinLedR, 255);
+      digitalWrite(pinLedG, 255);
+      digitalWrite(pinLedB, 0);
+      break;
+  }
+}
+*/
