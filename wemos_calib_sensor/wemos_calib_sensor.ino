@@ -21,7 +21,7 @@ MHZ19_uart sensor;                      // Creo el objeto del sensor
 LiquidCrystal_I2C display(0x27,16,2);   // Creo el objeto display dirección 0x27 y 16 columnas x 2 filas
 //-----------------Setup----------------------------
 void setup() {
-  pinMode(pinLed, OUTPUT);               // Inicia LED ROJO
+  pinMode(pinLed, OUTPUT);               // Inicia LED
   pinMode(pinBuzzer, OUTPUT);            // Inicia Buzzer
   pinMode(pinCalib, INPUT_PULLUP);       // Entrada pulsador para calibrar, setteada como pullup para poder conectar pulsador sin poner resistencia adicional
   Serial.begin(9600);                    // Iniciamos el serial
