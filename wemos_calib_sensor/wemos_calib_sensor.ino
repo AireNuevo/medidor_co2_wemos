@@ -73,10 +73,10 @@ void loop() {
   } 
   display.clear();
   displayPrint(0, 0, "Aire Nuevo");
-  imprimirCO2(sensor.getPPM());
   //  Emite una alarma en función del resultado
   while(sensor.getPPM() >= 1200) {              // Acá todavía no podemos usar una variable porque tiene que ser 
     alarma(1, 250);                             // la medición en tiempo real para que suene constantemente
+    imprimirCO2(sensor.getPPM());
   }
   int co2ppm = sensor.getPPM();                 // Guardamos el CO2 en una variable
   imprimirCO2(co2ppm);
