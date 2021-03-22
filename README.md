@@ -1,5 +1,5 @@
 # Medidor de CO2 V2 - WEMOS
-Esta es la segunda versión del medidor de CO2 con una placa WEMOS D1 mini utilizando un display I2C, un sensor MH-Z19C, un led RGB y un buzzer.
+Esta es la segunda versión del medidor de CO2 con una placa WEMOS D1 mini utilizando un display I2C, un sensor MH-Z19C, un led simple y un buzzer.
 
 ## WEMOS D1 Mini
 Es una placa que cuenta con un ESP8255-ESP12F para el uso de WiFi.
