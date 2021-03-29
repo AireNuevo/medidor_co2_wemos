@@ -14,7 +14,7 @@ const int tx_pin = 15;     // Serial tx
 const int pinLed = 16;     // Led
 const int pinBuzzer = 14;   // Buzzer
 const int pinCalib = 12;    // Pulsador
-const String numeroSerie = "0149"; 
+const String numeroSerie = "0150"; 
 //--------------------------------------------------
 long loops = 0;                         // Contamos las veces que se ejecutó el loop
 MHZ19_uart sensor;                      // Creo el objeto del sensor
