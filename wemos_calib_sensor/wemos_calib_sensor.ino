@@ -1,6 +1,7 @@
 /*----------------------------------------------------------
     Medidor de CO2 con placa WEMOS, pantalla i2c, led simple
   ----------------------------------------------------------*/
+#include "pitches.h"
 #include <MHZ19_uart.h>     
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
@@ -14,7 +15,7 @@ const int tx_pin = 15;     // Serial tx
 const int pinLed = 16;     // Led
 const int pinBuzzer = 14;   // Buzzer
 const int pinCalib = 12;    // Pulsador
-const String numeroSerie = "0393"; 
+const String numeroSerie = "0000"; 
 //--------------------------------------------------
 long loops = 0;                         // Contamos las veces que se ejecutó el loop
 MHZ19_uart sensor;                      // Creo el objeto del sensor

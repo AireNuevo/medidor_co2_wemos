@@ -3,7 +3,7 @@ void alarma(int veces, int duracionNota) {
   for(int i=0; i<veces; i++)
   {
     digitalWrite(pinLed, HIGH);           // Prendo led 
-    tone(pinBuzzer, 523, duracionNota);   // Hago sonar el buzzer, 523 corresponde a la nota C5
+    tone(pinBuzzer, NOTE_C7, duracionNota);   // Hago sonar el buzzer, 523 corresponde a la nota C5
     delay(duracionNota);                  // Espero lo que dura la nota
     noTone(pinBuzzer);                    // Silencio el buzzer
     digitalWrite(pinLed , LOW);           // Apago led
