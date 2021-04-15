@@ -19,7 +19,7 @@ En este repositorio se encuentran las librerias como archivos .zip para ser inst
 ## Preparando el IDE para usar Wemos/esp8266
 * Se debe abrir el IDE e ir a preferencias. Agregar el siguiente enlace ```https://arduino.esp8266.com/stable/package_esp8266com_index.json``` a la sección de Additional Board Manager URLs.
 * Abrir el Boards Manager desde el menú de Placas en las herramientas, buscar ESP8266 e instalar el paquete de ESP8266 Community
-* Ir al Library Manager desde el menú de Sketch e instalar el paquete ESP8255 Microgear de Chavee Issariyapat
+* Ir al Library Manager desde el menú de Sketch e instalar el paquete ESP8266 Microgear de Chavee Issariyapat
 * Seleccionar la placa WEMOS D1 R1
 
 Y ya está todo listo para cargar código en la placa
