@@ -15,7 +15,7 @@ const int tx_pin = 15;     // Serial tx
 const int pinLed = 16;     // Led
 const int pinBuzzer = 14;   // Buzzer
 const int pinCalib = 12;    // Pulsador
-const String numeroSerie = "0279"; 
+const String numeroSerie = "0391"; 
 //--------------------------------------------------
 long loops = 0;                         // Contamos las veces que se ejecutó el loop
 MHZ19_uart sensor;                      // Creo el objeto del sensor
@@ -25,7 +25,7 @@ void setup() {
   pinMode(pinLed, OUTPUT);               // Inicia LED
   pinMode(pinBuzzer, OUTPUT);            // Inicia Buzzer
   pinMode(pinCalib, INPUT_PULLUP);       // Entrada pulsador para calibrar, setteada como pullup para poder conectar pulsador sin poner resistencia adicional
-  Serial.begin(9600);                    // Iniciamos el serial
+  Serial.begin(115200);                    // Iniciamos el serial
   display.begin();                       // Inicio el display            
   display.clear();                       // Limpio la pantalla 
   display.backlight();                   // Prendo la backlight
