@@ -11,17 +11,6 @@ void alarma(int veces, int duracionNota) {
   }
 }
 
-// Creacion del simbolo de numeral para ser utilizado en el display i2c
-byte numeral[] = {
-  B11100,
-  B10100,
-  B11100,
-  B00000,
-  B00000,
-  B00000,
-  B00000,
-  B00000
-};
 //-----------Print-por-display----------------------
 void displayPrint(int posicion, int linea, String texto) {
   display.setCursor(posicion, linea);       // Ubicamos el cursor en la posicion y linea deseada
