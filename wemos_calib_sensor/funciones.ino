@@ -16,17 +16,7 @@ void displayPrint(int posicion, int linea, String texto) {
   display.setCursor(posicion, linea);       // Ubicamos el cursor en la posicion y linea deseada
   display.print(texto);                     // Escribe primera linea del cartel
 }
-void imprimirCO2(int co2ppm) {
-  // Print por serial  
-  Serial.print("CO2: " + String(co2ppm) + "ppm \n");  // Escribe CO2
-  // Print por display
-  // Muestra medición de CO2  
-  //display.clear();                                  // Borra pantalla
-  displayPrint(0, 1, "          ");                   // Simula un clear solo del renglon inferior
-  // Print CO2
-  displayPrint(0, 1, "CO2: " + String(co2ppm) + "ppm");   
-  logoUNAHUR();
-}
+//-------------Logo-UNAHUR--------------------------
 void logoUNAHUR() {
   byte UNAHUR1[] = {
     B11100,
@@ -73,6 +63,18 @@ void logoUNAHUR() {
   display.write(1);
   display.setCursor(15, 1);       // Ubicamos el cursor en la posicion y linea deseada
   display.write(0);
+}
+//----------Impresion-CO2-----------------------
+void imprimirCO2(int co2ppm) {
+  // Print por serial  
+  Serial.print("CO2: " + String(co2ppm) + "ppm \n");  // Escribe CO2
+  // Print por display
+  // Muestra medición de CO2  
+  //display.clear();                                  // Borra pantalla
+  displayPrint(0, 1, "          ");                   // Simula un clear solo del renglon inferior
+  // Print CO2
+  displayPrint(0, 1, "CO2: " + String(co2ppm) + "ppm");   
+  logoUNAHUR();
 }
 //-----------Calibración----------------------
 void calibrar()
