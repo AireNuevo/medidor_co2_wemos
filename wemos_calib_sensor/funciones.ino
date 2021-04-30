@@ -18,6 +18,7 @@ void displayPrint(int posicion, int linea, String texto) {
 }
 //-------------Logo-UNAHUR--------------------------
 void logoUNAHUR() {
+  // Se crean los caracteres utilizando los bits
   byte UNAHUR1[] = {
     B11100,
     B11110,
@@ -48,6 +49,7 @@ void logoUNAHUR() {
     B11110,
     B11100
   };
+  // Se agregan los caracteres a la librería del display, asignandoles un valor con el que se lo va a llamar
   display.createChar(0, UNAHUR1);
   display.createChar(1, UNAHUR2);
   display.createChar(2, UNAHUR3);
@@ -144,12 +146,12 @@ void calibrar()
 char str_to_print[STR_LEN]={'A','i','r','e',' ','N','u','e','v','o'};   // String separado en caracteres
 
 void scrollingText(uint8_t scrolled_by) {
-  for (uint8_t i=0;i<11;i++) {
+  for (uint8_t i=0;i<10;i++) {
     display.setCursor(i,0);
-    if (scrolled_by>=11) scrolled_by=0;
-    if (scrolled_by<10) display.print(str_to_print[scrolled_by]);
-    else display.print(' ');
-    scrolled_by++;
+    if (scrolled_by>=11) scrolled_by=0;                           // Esto permite volver al inicio del array de caracteres
+    if (scrolled_by<10) display.print(str_to_print[scrolled_by]); // Mientras el valor de scrolled_by sea un indice del array, imprime el valor
+    else display.print(' ');                                      // Se imprime un caracter vacío antes de volver al inicio del array para que haya un espacio entre la palabra Nuevo y Aire, en ese orden
+    scrolled_by++;                          
   }
 }
 
