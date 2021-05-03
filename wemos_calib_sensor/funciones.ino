@@ -100,9 +100,7 @@ void calibrar()
       display.clear();                                            // Borra pantalla  
       displayPrint(0, 0, String(segundosPasados / 60));           // Escribimos los minutos pasados
       displayPrint(7, 0, "minutos");
-      displayPrint(0, 1, "CO2: ");                                // Escribimos el CO2
-      displayPrint(8, 1, String(sensor.getPPM()));
-      displayPrint(12, 1, "ppm");
+      displayPrint(0, 1, "CO2: " + String(sensor.getPPM()) + "ppm");   
     }
     else {
       // Print por display
