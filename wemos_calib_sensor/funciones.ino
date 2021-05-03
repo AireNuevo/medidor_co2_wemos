@@ -81,8 +81,8 @@ void imprimirCO2(int co2ppm) {
 //-----------Calibración----------------------
 void calibrar()
 {
-  const long segundosEspera = 1800;      // Cantidad de segundos a esperar
-  long segundosPasados = 0;              // Cuenta segundos
+  const int segundosEspera = 1800;      // Cantidad de segundos a esperar
+  int segundosPasados = 0;              // Cuenta segundos
   // Print por serial
   Serial.print("COMIENZA CALIBRACION \n"); // Notificamos que empezó el proceso de calibración
   // Print por display
@@ -142,7 +142,7 @@ void calibrar()
 }
 
 //------------Scrolling-Text-----------------------
-#define STR_LEN 12                                                      // Largo del texto
+const int STR_LEN = 12;                                                 // Largo del texto
 char str_to_print[STR_LEN]={'A','i','r','e',' ','N','u','e','v','o'};   // String separado en caracteres
 
 void scrollingText(uint8_t scrolled_by) {

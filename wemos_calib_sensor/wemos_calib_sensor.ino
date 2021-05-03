@@ -17,7 +17,7 @@ const int pinBuzzer = 14;   // Buzzer
 const int pinCalib = 12;    // Pulsador
 const String numeroSerie = "0000"; 
 //--------------------------------------------------
-long loops = 0;                         // Contamos las veces que se ejecutó el loop
+int loops = 0;                         // Contamos las veces que se ejecutó el loop
 MHZ19_uart sensor;                      // Creo el objeto del sensor
 LiquidCrystal_I2C display(0x27,16,2);   // Creo el objeto display dirección 0x27 y 16 columnas x 2 filas
 //-----------------Setup----------------------------
